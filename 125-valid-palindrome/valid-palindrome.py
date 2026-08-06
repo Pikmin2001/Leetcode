@@ -2,8 +2,7 @@ class Solution:
     def isPalindrome(self, s: str) -> bool:
         l = 0
         r = len(s)-1
-        if s == " ":
-            return True
+        
         while l <= r:
             if not s[l].isalnum():
                 l += 1
