@@ -1,29 +1,24 @@
 class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
-        #if openN < n, valid
-        #if closedN < openN, valid
-        stack = []
         res = []
+        stack = []
 
-        def backTrack(openN, closedN):
-            #IIF
-            if openN == closedN == n:
-                ans = "".join(stack)
+        def dfs(openN, closeN):
+            #win con
+            if openN == closeN == n:
+                ans = "".join(stack.copy())
                 res.append(ans)
-                return
-            
+
             if openN < n:
                 stack.append("(")
-                
-                backTrack(openN + 1, closedN)
+                dfs(openN+1, closeN)
                 stack.pop()
 
-            if closedN < openN:
+            if closeN < openN:
                 stack.append(")")
-                
-                backTrack(openN, closedN + 1)
+                dfs(openN, closeN+1)
                 stack.pop()
-              
-        backTrack(0, 0)    
-        return res
-            
+
+        dfs(0, 0)
+        return res 
+        
