@@ -1,21 +1,25 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        dictionary = { ")" : "(", "]" : "[", "}" : "{" }
         stack = []
-        openn = ["[", "(", "{"]
-        close = ["]", ")", "}"]
+        matches = {"}":"{", "]":"[", ")":"("}
         if len(s) % 2 != 0:
             return False
-        
+
+        if not s:
+            return False
+    
         for p in s:
-            if p in openn:
+            if p in matches.values():
                 stack.append(p)
             else:
-                if p in dictionary.keys():
-                    if stack and dictionary[p] == stack.pop():
-                        continue
+                if stack:
+                    if matches[p] == stack[-1]:
+                        stack.pop()
                     else:
-                        return False 
-        if len(stack) != 0:
+                        return False
+                else:
+                    return False
+        if stack:
             return False
-        return True
+        else:
+            return True
